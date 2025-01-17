@@ -1,5 +1,5 @@
 import logo from '../../assets/logos.jpg';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";

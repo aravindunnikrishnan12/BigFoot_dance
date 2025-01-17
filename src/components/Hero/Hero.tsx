@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Navbar from "../common/Navbar";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { motion } from "framer-motion";
-import { X } from 'lucide-react';
 import Herovideo from "../../assets/Herovideo.mp4";
 import WhiteImage from "../../assets/whiteBig.png";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
@@ -13,8 +12,14 @@ import img6 from '../../assets/im6.jpg'
 import img7 from '../../assets/im7.jpg'
 
 // ExpandedImageView Component
-
-const ExpandedImageView = ({ isOpen, onClose, image, title, description }) => {
+interface ExpandedImageViewProps {
+  isOpen: boolean;
+  onClose: () => void;
+  image: string; // Assuming 'image' is a string (URL or base64 image string)
+  title: string; // 'title' is a string
+  description: string; // 'description' is a string
+}
+const ExpandedImageView : React.FC<ExpandedImageViewProps>= ({ isOpen, onClose, image, title, description }) => {
   if (!isOpen) return null;
 
   return (
@@ -84,7 +89,7 @@ const ExpandedImageView = ({ isOpen, onClose, image, title, description }) => {
 
 
 // FadeUp Animation
-export const FadeUp = (delay) => {
+export const FadeUp = (delay: number) => {
   return {
     initial: {
       opacity: 0,
@@ -246,12 +251,13 @@ const Hero = () => {
 
       {/* Expanded Image View Modal */}
       <ExpandedImageView
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        image={selectedImage?.image}
-        title={selectedImage?.title}
-        description={selectedImage?.description}
-      />
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  image={selectedImage?.image || ''}
+  title={selectedImage?.title || ''}
+  description={selectedImage?.description || ''}
+/>
+
     </section>
   );
 };

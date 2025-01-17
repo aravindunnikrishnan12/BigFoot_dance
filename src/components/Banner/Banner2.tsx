@@ -1,6 +1,6 @@
 
 //src//components/Banner/Banner.tsx 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { motion } from "framer-motion";
 import BigVideo from "../../assets/BigVideo.mp4";
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";

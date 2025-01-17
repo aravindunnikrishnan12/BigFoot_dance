@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { CreditCard, Truck, Shield, ArrowLeft } from 'lucide-react';
+import { CreditCard, Truck,  ArrowLeft } from 'lucide-react';
 import Navbar from '../../../components/common/Navbar';
-import { Link } from "react-router-dom";
 
 const CheckoutPage = ({ cart = [{ 
   name: 'Big Foot Dance Arena T-Shirt',

@@ -2,7 +2,7 @@
 import Navbar from '../../components/common/Navbar';
 
 import StudioPic1 from '../../assets/im3.jpeg';
-import React, { useState } from 'react';
+import  { useState } from 'react';
 
 import { User, Send, Phone, Mail, MapPin } from 'lucide-react';
 

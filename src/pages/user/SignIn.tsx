@@ -5,7 +5,6 @@ import { Mail, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import sig from '../../assets/Sig.jpg';
 import Phonelogo from '../../assets/Phonelogo.png';
-import intro from '../../assets/IntroVideo.mp4'
 
 
 const SignIn = () => {

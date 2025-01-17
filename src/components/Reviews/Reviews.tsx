@@ -1,6 +1,5 @@
 //reveiws.tsx
 
-import React from 'react';
 import { Star } from 'lucide-react';
 
 const ReviewCard = ({ author, date, rating, content, platform }) => {

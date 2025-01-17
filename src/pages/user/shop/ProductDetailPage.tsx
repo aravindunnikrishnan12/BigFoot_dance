@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import Tshirt from '../../../assets/Tshirt.jpg';
 import { ShoppingCart, Heart, Star, Share2, Package, Shield, RefreshCw, Plus, Minus } from 'lucide-react';
 import Navbar from '../../../components/common/Navbar';

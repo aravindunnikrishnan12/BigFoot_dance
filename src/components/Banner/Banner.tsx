@@ -1,8 +1,6 @@
-import React from "react";
-// import BannerPng from "../../assets/online.gif";
-// import Onnn from '../../assets/Onnn.gif';
+
 import Outs from '../../assets/Outs.gif';
-// import MA from '../../assets/MA.gif';
+
 
 import { GrUserExpert } from "react-icons/gr";
 import { MdOutlineAccessTime } from "react-icons/md";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from '../../components/common/Navbar';
 
@@ -6,10 +6,10 @@ import Navbar from '../../components/common/Navbar';
 import Nithin from '../../assets/IMG_1058.jpg';
 import Kevin from '../../assets/IMG_1059.jpg';
 import Asna from '../../assets/IMG_1060.jpg';
-import Gayatri from '../../assets/IMG_1061.jpg';
+// import Gayatri from '../../assets/IMG_1061.jpg';
 import Bensun from '../../assets/IMG_1062 - Copy.jpg';
-import Aravind from '../../assets/IMG_1064 (1).jpg';
-import Reshma from '../../assets/IMG_1061.jpg';
+// import Aravind from '../../assets/IMG_1064 (1).jpg';
+// import Reshma from '../../assets/IMG_1061.jpg';
 import StudioPic from '../../assets/im3.jpeg';
 import StudioPic1 from '../../assets/im3.jpeg';
 import StudioPic2 from '../../assets/im3.jpeg';
