@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-
-import log from '../../assets/modal.png'
+import { useState } from "react";
+import log from '../../assets/modal.png';
 import {
   FaRunning,
   FaTheaterMasks,
@@ -10,13 +9,18 @@ import {
   FaCrown,
 } from "react-icons/fa";
 
-
 import { motion } from "framer-motion";
-import { ImPointDown } from "react-icons/im";
 
 const defaultImage = log;
 
-const classDetails = {
+type ClassDetails = {
+  description: string;
+  timing?: string | string[];
+  ageLimit?: string;
+  fee: string;
+};
+
+const classDetails: Record<string, ClassDetails> = {
   "Open-style Class": {
     description:
       "Intensive training in hip hop, house, locking and other western styles for teens & adults.",
@@ -62,8 +66,8 @@ const ServicesData = [
   {
     id: 1,
     title: "Open-style Class",
-    icon: <FaUserFriends size={40} color="orange" />, 
-     delay: 0.2,
+    icon: <FaUserFriends size={40} color="orange" />,
+    delay: 0.2,
   },
   {
     id: 2,
@@ -74,103 +78,114 @@ const ServicesData = [
   {
     id: 3,
     title: "Zumba",
-    icon: <FaMusic size={40} color="blue" />, // Music for Zumba sessions
+    icon: <FaMusic size={40} color="blue" />,
     delay: 0.4,
   },
   {
     id: 4,
     title: "Kids Class",
-    icon: <FaChild size={40} color="red" />, // Represents children
+    icon: <FaChild size={40} color="red" />,
     delay: 0.5,
   },
   {
     id: 5,
     title: "Private Class",
-    icon: <FaCrown size={40} color="green" />, // Symbolizing exclusivity
+    icon: <FaCrown size={40} color="green" />,
     delay: 0.6,
   },
   {
     id: 6,
     title: "Core Batch",
-    icon: <FaRunning size={40} color="teal" />, // Represents intense training
+    icon: <FaRunning size={40} color="teal" />,
     delay: 0.7,
   },
 ];
 
-const AnimatedModalDemo = ({ isOpen, onClose, title, details }) => {
+type AnimatedModalDemoProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  details: ClassDetails;
+};
+
+const AnimatedModalDemo: React.FC<AnimatedModalDemoProps> = ({
+  isOpen,
+  onClose,
+  title,
+  details,
+}) => {
   if (!isOpen) return null;
 
   return (
     <motion.div
-  initial={{ opacity: 0, scale: 0.8 }}
-  animate={{ opacity: 1, scale: 1 }}
-  exit={{ opacity: 0, scale: 0.8 }}
-  className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
->
-  <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-xl p-6 max-w-lg w-full relative shadow-2xl">
-    <button
-      onClick={onClose}
-      className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-transform transform hover:scale-110"
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
     >
-      ✕
-    </button>
-    <h4 className="text-2xl md:text-3xl text-gray-800 font-extrabold text-center mb-6">
-      {title}
-    </h4>
-    <div className="flex justify-center items-center mb-6">
-      <motion.img
-        src={defaultImage}
-        alt="Default class image"
-        className="rounded-xl shadow-lg h-40 w-40 object-cover ring-2 ring-blue-300"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      />
-    </div>
-    <div>
-      <p className="text-gray-600 text-lg leading-relaxed">{details.description}</p>
-      {details.timing && (
-        <div className="mt-6">
-          <h4 className="font-bold text-lg text-gray-700 mb-2">Timings:</h4>
-          {Array.isArray(details.timing) ? (
-            <ul className="list-disc list-inside text-gray-600 space-y-1">
-              {details.timing.map((time, index) => (
-                <li key={index} className="pl-2">{time}</li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-600">{details.timing}</p>
+      <div className="bg-gradient-to-r from-blue-50 via-white to-blue-50 rounded-xl p-6 max-w-lg w-full relative shadow-2xl">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-transform transform hover:scale-110"
+        >
+          ✕
+        </button>
+        <h4 className="text-2xl md:text-3xl text-gray-800 font-extrabold text-center mb-6">
+          {title}
+        </h4>
+        <div className="flex justify-center items-center mb-6">
+          <motion.img
+            src={defaultImage}
+            alt="Default class image"
+            className="rounded-xl shadow-lg h-40 w-40 object-cover ring-2 ring-blue-300"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          />
+        </div>
+        <div>
+          <p className="text-gray-600 text-lg leading-relaxed">{details.description}</p>
+          {details.timing && (
+            <div className="mt-6">
+              <h4 className="font-bold text-lg text-gray-700 mb-2">Timings:</h4>
+              {Array.isArray(details.timing) ? (
+                <ul className="list-disc list-inside text-gray-600 space-y-1">
+                  {details.timing.map((time, index) => (
+                    <li key={index} className="pl-2">{time}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-600">{details.timing}</p>
+              )}
+            </div>
           )}
+          {details.ageLimit && (
+            <div className="mt-4">
+              <h4 className="font-bold text-lg text-gray-700 mb-1">Age Limit:</h4>
+              <p className="text-gray-600">{details.ageLimit}</p>
+            </div>
+          )}
+          <div className="mt-4">
+            <h4 className="font-bold text-lg text-gray-700 mb-1">Fee:</h4>
+            <p className="text-gray-600">{details.fee}</p>
+          </div>
         </div>
-      )}
-      {details.ageLimit && (
-        <div className="mt-4">
-          <h4 className="font-bold text-lg text-gray-700 mb-1">Age Limit:</h4>
-          <p className="text-gray-600">{details.ageLimit}</p>
-        </div>
-      )}
-      <div className="mt-4">
-        <h4 className="font-bold text-lg text-gray-700 mb-1">Fee:</h4>
-        <p className="text-gray-600">{details.fee}</p>
       </div>
-    </div>
-  </div>
-</motion.div>
-
+    </motion.div>
   );
 };
 
-const Services = () => {
-  const [selectedClass, setSelectedClass] = useState(null);
+const Services: React.FC = () => {
+  const [selectedClass, setSelectedClass] = useState<string | null>(null);
 
-  const handleLearnMore = (title) => {
+  const handleLearnMore = (title: string) => {
     setSelectedClass(title);
   };
 
   return (
     <div className="services-container p-8 bg-[#f2a229]">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
-      Sessions
+        Sessions
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {ServicesData.map((service) => (

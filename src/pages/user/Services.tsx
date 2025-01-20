@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Calendar, Music, Video, Users, School, Trophy } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/common/Navbar';
 
 const Services = () => {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);  // Fix type here
   const navigate = useNavigate();
 
   const services = [
@@ -46,15 +46,16 @@ const Services = () => {
     },
   ];
 
-  const handleServiceClick = (title) => {
+  // Explicitly type 'title' as string
+  const handleServiceClick = (title: string) => {
     navigate(`/services/details/${title}`);
   };
 
   return (
     <div className="min-h-screen bg-[#f2a229]">
-          <Navbar/>
+      <Navbar />
       <div className="container mx-auto px-4 py-16">
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,12 +81,12 @@ const Services = () => {
                 onHoverStart={() => setHoveredIndex(index)}
                 onHoverEnd={() => setHoveredIndex(null)}
               >
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-yellow-400/10 
                     rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
-                
-                <motion.div 
+
+                <motion.div
                   className="relative flex items-center mb-6"
                   whileHover={{ scale: 1.05 }}
                 >

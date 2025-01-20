@@ -67,7 +67,7 @@ const SignUp = () => {
               
               Join Us Today
             </motion.h2>
-   <form className="space-y-6">
+   <form className="space-y-6" onSubmit={handleSubmit}>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

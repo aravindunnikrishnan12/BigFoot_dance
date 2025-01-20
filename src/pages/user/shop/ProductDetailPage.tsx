@@ -1,10 +1,26 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import Tshirt from '../../../assets/Tshirt.jpg';
 import { ShoppingCart, Heart, Star, Share2, Package, Shield, RefreshCw, Plus, Minus } from 'lucide-react';
 import Navbar from '../../../components/common/Navbar';
 import { Link } from "react-router-dom";
 
-const ProductDetailPage = ({ product }) => {
+// Define the type for the product prop
+interface Product {
+  name: string;
+  image: string;
+  price: number;
+  description: string;
+  rating: number;
+  category: string;
+  brand: string;
+  stock: number;
+}
+
+interface ProductDetailPageProps {
+  product: Product;
+}
+
+const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ product }) => {
   const [isWishlist, setIsWishlist] = useState(false);
   const [selectedSize, setSelectedSize] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -12,12 +28,12 @@ const ProductDetailPage = ({ product }) => {
   const features = [
     { icon: Package, title: 'Free Delivery', desc: 'For orders above ₹999' },
     { icon: Shield, title: 'Secure Payment', desc: '100% secure payment' },
-    { icon: RefreshCw, title: 'Easy Returns', desc: '30 day return policy' }
+    { icon: RefreshCw, title: 'Easy Returns', desc: '30 day return policy' },
   ];
 
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 
-  const handleQuantityChange = (action) => {
+  const handleQuantityChange = (action: 'increase' | 'decrease') => {
     if (action === 'increase' && quantity < product.stock) {
       setQuantity(quantity + 1);
     } else if (action === 'decrease' && quantity > 1) {
@@ -45,7 +61,7 @@ const ProductDetailPage = ({ product }) => {
                   onClick={() => setIsWishlist(!isWishlist)}
                   className="absolute top-4 right-4 bg-white p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
                 >
-                  <Heart 
+                  <Heart
                     className={`w-5 h-5 transition-colors duration-300 ${
                       isWishlist ? 'fill-red-500 text-red-500' : 'text-gray-600'
                     }`}
@@ -88,7 +104,7 @@ const ProductDetailPage = ({ product }) => {
                     ₹{product.price}
                   </span>
                   <span className="text-lg text-gray-500 line-through">
-                    ₹{(product.price * 1.25).toFixed(0).toLocaleString('en-IN')}
+                    ₹{(product.price * 1.25).toFixed(0)}
                   </span>
                   <span className="text-green-600 font-medium">20% OFF</span>
                 </div>
@@ -159,10 +175,7 @@ const ProductDetailPage = ({ product }) => {
 
                 <div className="flex gap-4">
                   <button className="flex-1 bg-primary text-white py-4 px-8 rounded-lg font-medium hover:bg-dark transform hover:scale-105 transition-all duration-300">
-                  <Link to={`/CheckoutPage`}>
-                  Buy Now
-                  </Link>
-                 
+                    <Link to={`/CheckoutPage`}>Buy Now</Link>
                   </button>
                   <button className="flex-1 flex items-center justify-center gap-2 border-2 border-orange-600 text-orange-600 py-4 px-8 rounded-lg font-medium hover:bg-orange-50 transform hover:scale-105 transition-all duration-300">
                     <ShoppingCart className="w-5 h-5" />
@@ -213,8 +226,10 @@ const product = {
   rating: 4,
   category: 'Clothing',
   brand: 'No Brand',
-  stock: 10,
+  stock: 20,
 };
+
+// export default () => <ProductDetailPage product={product} />;
 
 export default function App() {
   return <ProductDetailPage product={product} />;

@@ -87,22 +87,16 @@ const ExpandedImageView : React.FC<ExpandedImageViewProps>= ({ isOpen, onClose, 
   );
 };
 
-
-// FadeUp Animation
+// Animation utility function
 export const FadeUp = (delay: number) => {
   return {
-    initial: {
-      opacity: 0,
-      y: 50,
-    },
-    animate: {
+    hidden: { opacity: 0, y: 10 },
+    show: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        duration: 0.5,
         delay: delay,
+        duration: 0.7,
         ease: "easeInOut",
       },
     },
@@ -113,7 +107,11 @@ export const FadeUp = (delay: number) => {
 const Hero = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<{
+    image: string;
+    title: string;
+    description: string;
+  } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleAudio = () => {

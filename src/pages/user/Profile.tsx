@@ -1,8 +1,39 @@
-import  { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import Navbar from "../../components/common/Navbar";
 
+interface UserData {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  city: string;
+  state: string;
+  pincode: string;
+  photo: string | null;
+}
+
+interface Notification {
+  id: number;
+  message: string;
+  isRead: boolean;
+}
+
+interface WishlistItem {
+  id: number;
+  name: string;
+  price: string;
+}
+
+interface Order {
+  id: number;
+  orderId: string;
+  date: string;
+  amount: string;
+  status: string;
+}
+
 const ProfilePage = () => {
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<UserData>({
     fullName: "John Doe",
     email: "john.doe@example.com",
     phone: "+91 9876543210",
@@ -14,24 +45,27 @@ const ProfilePage = () => {
   });
 
   const [editing, setEditing] = useState(false);
-  const [formData, setFormData] = useState(userData);
+  const [formData, setFormData] = useState<UserData>(userData);
 
-  const [notifications, setNotifications] = useState([
+  // If you don't need to use these, you can either remove them or use _ to avoid warnings
+  const [notifications, setNotifications] = useState<Notification[]>([
     { id: 1, message: "You have a new message from Admin", isRead: false },
     { id: 2, message: "Your order #12345 has been shipped", isRead: false },
   ]);
 
-  const [wishlist, setWishlist] = useState([
+  // Remove if not used
+  const [wishlist] = useState<WishlistItem[]>([
     { id: 1, name: "Bigfoot Tshirt", price: "₹400" },
     { id: 2, name: "Tshirt2", price: "₹500" },
   ]);
 
-  const [orders, setOrders] = useState([
+  // Remove if not used
+  const [orders] = useState<Order[]>([
     { id: 1, orderId: "#12345", date: "2024-01-15", amount: "₹1200", status: "Shipped" },
     { id: 2, orderId: "#67890", date: "2024-01-10", amount: "₹800", status: "Delivered" },
   ]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -40,18 +74,18 @@ const ProfilePage = () => {
     setEditing(false);
   };
 
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
+  const handlePhotoUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null;
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setUserData({ ...userData, photo: reader.result });
+        setUserData({ ...userData, photo: reader.result as string });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const markAsRead = (id) => {
+  const markAsRead = (id: number) => {
     setNotifications(
       notifications.map((notification) =>
         notification.id === id ? { ...notification, isRead: true } : notification
@@ -116,7 +150,7 @@ const ProfilePage = () => {
                       <input
                         type={field === "email" ? "email" : "text"}
                         name={field}
-                        value={formData[field]}
+                        value={formData[field as keyof UserData] || ""}  
                         onChange={handleInputChange}
                         className="w-full px-4 py-2 border rounded-md"
                       />

@@ -1,9 +1,6 @@
-
+import { useState } from 'react';
 import Navbar from '../../components/common/Navbar';
-
 import StudioPic1 from '../../assets/im3.jpeg';
-import  { useState } from 'react';
-
 import { User, Send, Phone, Mail, MapPin } from 'lucide-react';
 
 const ContactUs = () => {
@@ -19,7 +16,8 @@ const ContactUs = () => {
   ]);
   const [newMessage, setNewMessage] = useState('');
 
-  const handleSendMessage = (e) => {
+  // Specify the type for the event parameter
+  const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newMessage.trim()) {
       setMessages([...messages, {
@@ -34,7 +32,8 @@ const ContactUs = () => {
     }
   };
 
-  const formatTime = (date) => {
+  // Specify the type for the date parameter
+  const formatTime = (date: Date | string): string => {
     return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
@@ -72,9 +71,7 @@ const ContactUs = () => {
                   {messages.map((message) => (
                     <div
                       key={message.id}
-                      className={`flex gap-3 ${
-                        message.sender === 'user' ? 'justify-end' : 'justify-start'
-                      }`}
+                      className={`flex gap-3 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       {message.sender !== 'user' && (
                         <img
@@ -94,9 +91,7 @@ const ContactUs = () => {
                         </div>
                         <div
                           className={`p-3 rounded-lg ${
-                            message.sender === 'user'
-                              ? 'bg-orange-500 text-white'
-                              : 'bg-gray-100 text-gray-800'
+                            message.sender === 'user' ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-800'
                           }`}
                         >
                           {message.text}
